@@ -38,7 +38,7 @@ public class Cliente implements Serializable{
 	@Column (name="apellido_materno")
 	private String apmaterno;
 	
-	@Column (name="frc")
+	@Column (name="rfc")
 	private String rfc;
 	
 	@Column(name= "create_at")
@@ -91,14 +91,6 @@ public class Cliente implements Serializable{
 
 	public void setRfc(String rfc) {
 		this.rfc = rfc;
-	}
-
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
 	}
 	
 	@PrePersist

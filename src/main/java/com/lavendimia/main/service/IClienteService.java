@@ -12,4 +12,8 @@ public interface IClienteService {
 	public void updateCliente(Cliente cliente);
 	
 	public Cliente findCliente(Cliente cliente);
+	
+	public Cliente findClienteRfcAndId(Cliente cliente);
+	
+	public String conteoClientes();
 }
