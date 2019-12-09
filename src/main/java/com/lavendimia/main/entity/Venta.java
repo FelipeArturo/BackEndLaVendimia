@@ -14,8 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "clientes")
-public class Cliente implements Serializable{
+@Table(name="ventas")
+public class Venta implements Serializable{
 
 	/**
 	 * 
@@ -26,24 +26,21 @@ public class Cliente implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column (name="nombre")
-	private String nombre;
+	@Column (name="folio_venta")
+	private String folioventa;
 	
 	@Column (name="clave_cliente")
 	private String clavecliente;
 	
-	@Column (name="apellido_paterno")
-	private String appaterno;
+	@Column (name="nombre")
+	private String nombre;
 	
-	@Column (name="apellido_materno")
-	private String apmaterno;
-	
-	@Column (name="rfc")
-	private String rfc;
+	@Column (name="total")
+	private float total;
 	
 	@Column(name= "create_at")
 	@Temporal(TemporalType.DATE)
-	private Date createAt;
+	private Date createat;
 
 	public Long getId() {
 		return id;
@@ -53,12 +50,12 @@ public class Cliente implements Serializable{
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getFolioventa() {
+		return folioventa;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setFolioventa(String folioventa) {
+		this.folioventa = folioventa;
 	}
 
 	public String getClavecliente() {
@@ -69,32 +66,32 @@ public class Cliente implements Serializable{
 		this.clavecliente = clavecliente;
 	}
 
-	public String getAppaterno() {
-		return appaterno;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setAppaterno(String appaterno) {
-		this.appaterno = appaterno;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getApmaterno() {
-		return apmaterno;
+	public float getTotal() {
+		return total;
 	}
 
-	public void setApmaterno(String apmaterno) {
-		this.apmaterno = apmaterno;
+	public void setTotal(float total) {
+		this.total = total;
 	}
 
-	public String getRfc() {
-		return rfc;
+	public Date getCreateat() {
+		return createat;
 	}
 
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
+	public void setCreateat(Date createat) {
+		this.createat = createat;
 	}
 	
 	@PrePersist
 	public void prePersist() {
-		createAt = new Date();
+		createat = new Date();
 	}
 }
