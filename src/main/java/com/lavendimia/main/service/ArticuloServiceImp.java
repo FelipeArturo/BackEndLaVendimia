@@ -18,6 +18,12 @@ public class ArticuloServiceImp implements IArticuloService{
 	
 	@Override
 	@Transactional(readOnly=true)
+	public Articulo findByIdSQL(Long id) {
+		return (Articulo) articuloDao.findByIdSql(id);
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
 	public List<Articulo> findAll() {
 		return (List<Articulo>) articuloDao.findAll();
 	}

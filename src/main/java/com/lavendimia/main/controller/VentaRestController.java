@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lavendimia.main.collections.ObjetoHttpStatus;
 import com.lavendimia.main.collections.ObjetoRespuestaGeneral;
-
+import com.lavendimia.main.collections.VentaGeneral;
+import com.lavendimia.main.entity.Articulo;
 import com.lavendimia.main.entity.Venta;
+import com.lavendimia.main.service.IArticuloService;
 import com.lavendimia.main.service.IVentaService;
 
 @RestController
@@ -23,6 +25,9 @@ import com.lavendimia.main.service.IVentaService;
 public class VentaRestController {
 	@Autowired
 	private IVentaService ventaService;
+	
+	@Autowired
+	private IArticuloService articuloService;
 	
 	@GetMapping("/getAllVentas")
 	@CrossOrigin(origins="*")
@@ -40,12 +45,24 @@ public class VentaRestController {
 	
 	@PostMapping("/guardarVenta")
 	@CrossOrigin(origins="*")
-	public ObjetoRespuestaGeneral addVenta(@RequestBody Venta venta){
+	public ObjetoRespuestaGeneral addVenta(@RequestBody VentaGeneral ventaG){
 		/* Se crea la varible que contendra toda la informacion de respuesta */
 		ObjetoRespuestaGeneral objRespuesta = new ObjetoRespuestaGeneral();
 		ObjetoHttpStatus objetoStatus = new ObjetoHttpStatus();
+		Venta objVenta = new Venta();
+		Articulo objArticulo = new Articulo();
+		/* Se asigna toda la informacion necesaria */
+		objVenta.setClavecliente(ventaG.getClavecliente());
+		objVenta.setFolioventa(ventaG.getFolioventa());
+		objVenta.setNombre(ventaG.getNombre());
+		objVenta.setTotal(ventaG.getTotal());
 		/* Se realiza el registro de guardado*/
-		ventaService.saveVenta(venta);
+		ventaService.saveVenta(objVenta);
+		/* Se busca el articulo por medio de su id */
+		objArticulo = articuloService.findByIdSQL(ventaG.getIdarticulo());
+		/* Se asigna la informacion a actualizar y se manda actualizar */
+		objArticulo.setExistencia(objArticulo.getExistencia() - ventaG.getCantidad());
+		articuloService.updateArticulo(objArticulo);
 		//return new ResponseEntity<Object>(HttpStatus.CREATED);
 		objetoStatus.setCodigoError(HttpStatus.CREATED.toString());
 		objetoStatus.setMensajeError("Bien Hecho. Tu venta ha sido registrada correctamente.");

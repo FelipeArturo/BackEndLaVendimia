@@ -7,6 +7,8 @@ import com.lavendimia.main.entity.Articulo;
 public interface IArticuloService {
 	public List<Articulo> findAll();
 	
+	public Articulo findByIdSQL(Long id);
+	
 	public void saveArticulo(Articulo articulo);
 	
 	public void updateArticulo(Articulo articulo);
@@ -14,4 +16,5 @@ public interface IArticuloService {
 	public Articulo findArticuloDescripcionAndModelo(Articulo articulo);
 	
 	public String conteoArticulos();
+	
 }
