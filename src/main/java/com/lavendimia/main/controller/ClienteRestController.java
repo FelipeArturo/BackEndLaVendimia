@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lavendimia.main.Mapper.Mapper;
+import com.lavendimia.main.collections.MCliente;
 import com.lavendimia.main.collections.ObjetoHttpStatus;
 import com.lavendimia.main.collections.ObjetoRespuestaGeneral;
 import com.lavendimia.main.entity.Cliente;
@@ -33,6 +35,23 @@ public class ClienteRestController {
 		listClientes = clienteService.findAll();
 		/* Se asigna el listado al objeto general de respuesta */
 		objRespuesta.setListadoClientes(listClientes);
+		/* Se regresa el objeto general de respuesta */
+		return objRespuesta;
+	}
+	
+	@GetMapping("/getAllClientesMapper")
+	@CrossOrigin(origins="*")
+	public ObjetoRespuestaGeneral getClientesMapeados(){
+		/* Se crea la varible que contendra toda la informacion de respuesta */
+		ObjetoRespuestaGeneral objRespuesta = new ObjetoRespuestaGeneral();
+		List<Cliente> listClientes = new ArrayList<>();
+		List<MCliente> listClientesMap = new ArrayList<>();
+		/* Se realiza la peticion al service para obtener el listado de clientes */
+		listClientes = clienteService.findAll();
+		/* Se mapea el listado */
+		listClientesMap = Mapper.convertiListaclientes(listClientes);
+		/* Se asigna el listado al objeto general de respuesta */
+		objRespuesta.setListadoClientesMapeados(listClientesMap);
 		/* Se regresa el objeto general de respuesta */
 		return objRespuesta;
 	}
